@@ -1,0 +1,1 @@
+export const ALL_HEROES_ADD='ALL_HEROES_ADD';
