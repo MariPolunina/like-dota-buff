@@ -6,8 +6,10 @@ export const allHeroesAdd = (data) => {
 }
 
 export const allHeroesLoad = () => {
-    return async dispatch => {
-        // const response = await heroAPI.getAllHeroes();
-        // dispatch(allHeroesAdd(response.data));
+    return async (dispatch, getState) => {
+        if(getState().allHeroesReducer.heroes.length==0){
+            const response = await heroAPI.getAllHeroes();
+            dispatch(allHeroesAdd(response.data));
+        }
     }
 }

@@ -1,7 +1,9 @@
+import { images, primaryAttrImages } from "../assets/images";
 import { ALL_HEROES_ADD } from "./types";
 
 const initialState = {
-    heroes: []
+    heroes: [],
+    primaryAttrImages:primaryAttrImages
 };
 
 export const allHeroesReducer = (state = initialState, action) => {

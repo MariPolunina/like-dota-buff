@@ -1,12 +1,18 @@
 
 import './App.css';
-import AllHeroes from './components/AllHeroes';
+import Header from './components/Header/Header';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import AllHeroes from './components/AllHeroes/AllHeroes';
 
 function App() {
   return (
     <div>
-      <h1>Everything is OK</h1>
-      <AllHeroes/>
+      <HashRouter>
+          <Header />
+        <Routes>
+          <Route path='/allHeroes' element={<AllHeroes />} />
+        </Routes>
+      </HashRouter>
     </div>
   );
 }
