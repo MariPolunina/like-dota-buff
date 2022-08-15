@@ -3,28 +3,50 @@ const initialState = {
     nemuItems: [
         {
             mainMenuItem: 'Heroes',
-            pathTo:'/allHeroes',
-            subMenuItems: ['All Heroes', 'Meta', 'Trends', 'Lanes', 'Most Played', 'Win Rate', 'Game Impact', 'Economy', 'Farm', 'Damage and Healing']
+            pathTo: '/allHeroes',
+            subMenuItems: [{ subMenuItem: 'All Heroes', pathTo: '/allHeroes' },
+            { subMenuItem: 'Meta', pathTo: '/meta' },
+            { subMenuItem: 'Trends', pathTo: '/' },
+            { subMenuItem: 'Lanes', pathTo: '/' },
+            { subMenuItem: 'Most Played', pathTo: '/' },
+            { subMenuItem: 'Win Rate', pathTo: '/' },
+            { subMenuItem: 'Game Impact', pathTo: '/' },
+            { subMenuItem: 'Economy', pathTo: '/' },
+            { subMenuItem: 'Farm', pathTo: '/' },
+            { subMenuItem: 'Damage and Healing', pathTo: '/' }]
         },
         {
             mainMenuItem: 'Items',
-            pathTo:'/',
-            subMenuItems: ['Most Used', 'Win Rate', 'Game Impact', 'Economy', 'Cosmetics']
+            pathTo: '/',
+            subMenuItems: [{ subMenuItem: 'Most Used', pathTo: '/' },
+            { subMenuItem: 'Win Rate', pathTo: '/' },
+            { subMenuItem: 'Game Impact', pathTo: '/' },
+            { subMenuItem: 'Economy', pathTo: '/' },
+            { subMenuItem: 'Cosmetics', pathTo: '/' }]
         },
         {
             mainMenuItem: 'Players',
-            pathTo:'/',
-            subMenuItems: ['Verified', 'Ranked Leaderboard', 'Achievments', 'Highest Win Rate', 'Most Matches Played', 'Time Spent Playing']
+            pathTo: '/',
+            subMenuItems: [{ subMenuItem: 'Verified', pathTo: '/' },
+            { subMenuItem: 'Ranked Leaderboard', pathTo: '/' },
+            { subMenuItem: 'Achievments', pathTo: '/' },
+            { subMenuItem: 'Highest Win Rate', pathTo: '/' },
+            { subMenuItem: 'Most Matches Played', pathTo: '/' },
+            { subMenuItem: 'Time Spent Playing', pathTo: '/' }]
         },
         {
             mainMenuItem: 'Matches',
-            pathTo:'/',
-            subMenuItems: ['Live Matches', 'Recent Esports Mathes', 'Recent Matches', 'Siltbreaker', 'Dark Moon']
+            pathTo: '/',
+            subMenuItems: [{ subMenuItem: 'Live Matches', pathTo: '/' },
+            { subMenuItem: 'Recent Esports Mathes', pathTo: '/' },
+            { subMenuItem: 'Recent Matches', pathTo: '/' },
+            { subMenuItem: 'Siltbreaker', pathTo: '/' },
+            { subMenuItem: 'Dark Moon', pathTo: '/' }]
         },
 
     ]
 }
 
-export const headerReducer=(state=initialState, action)=>{
+export const headerReducer = (state = initialState, action) => {
     return state;
 }
