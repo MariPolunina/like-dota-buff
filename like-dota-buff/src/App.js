@@ -1,23 +1,34 @@
-
 import './App.css';
 import Header from './components/Header/Header';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import AllHeroes from './components/AllHeroes/AllHeroes';
-import Meta from './components/Meta/Meta';
+import { useSelector } from 'react-redux/es/exports';
 
 function App() {
+  const menuItems = useSelector(state => {
+    return state.headerReducer.nemuItems;
+  })
   return (
     <div>
       <HashRouter>
-          <Header />
+        <Header />
         <Routes>
-          <Route path='/allHeroes' element={<AllHeroes />} />
-          <Route path='/meta' element={<Meta />} />
+          {
+            menuItems.map(item => {
+              const returnValue = item.subMenuItems.map(itemSub => <Route path={itemSub.pathTo} element={itemSub.forElement} />);
+              return (
+                <>
+                  <Route path={item.pathTo} element={item.forElement} />
+                  {returnValue}
+                </>
+              )
+            })
+          }
         </Routes>
       </HashRouter>
     </div>
   );
 }
+
 
 export default App;
 

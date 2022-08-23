@@ -10,7 +10,6 @@ const Header = (props) => {
     });
     const [visibleSubMenu, setVisibleSubMenu] = useState('null');
     const handleOver = ( item ) => {
-        console.log(item);
         setVisibleSubMenu(<SubMenu item={item} />)
     }
     return (
@@ -28,7 +27,6 @@ const Header = (props) => {
 }
 
 const SubMenu = ({ item }) => {
-    console.log(item);
     return (
         <div className={Style.subMenuContainer}>
             {

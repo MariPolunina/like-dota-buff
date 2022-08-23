@@ -1,11 +1,14 @@
+import AllHeroes from "../components/AllHeroes/AllHeroes";
+import Meta from "../components/Meta/Meta";
 
 const initialState = {
     nemuItems: [
         {
             mainMenuItem: 'Heroes',
             pathTo: '/allHeroes',
+            forElement: <AllHeroes />,
             subMenuItems: [{ subMenuItem: 'All Heroes', pathTo: '/allHeroes' },
-            { subMenuItem: 'Meta', pathTo: '/meta' },
+            { subMenuItem: 'Meta', pathTo: '/meta', forElement:<Meta /> },
             { subMenuItem: 'Trends', pathTo: '/' },
             { subMenuItem: 'Lanes', pathTo: '/' },
             { subMenuItem: 'Most Played', pathTo: '/' },
@@ -18,6 +21,7 @@ const initialState = {
         {
             mainMenuItem: 'Items',
             pathTo: '/',
+            forElement: <AllHeroes />,
             subMenuItems: [{ subMenuItem: 'Most Used', pathTo: '/' },
             { subMenuItem: 'Win Rate', pathTo: '/' },
             { subMenuItem: 'Game Impact', pathTo: '/' },
@@ -27,6 +31,7 @@ const initialState = {
         {
             mainMenuItem: 'Players',
             pathTo: '/',
+            forElement: <AllHeroes />,
             subMenuItems: [{ subMenuItem: 'Verified', pathTo: '/' },
             { subMenuItem: 'Ranked Leaderboard', pathTo: '/' },
             { subMenuItem: 'Achievments', pathTo: '/' },
@@ -37,6 +42,7 @@ const initialState = {
         {
             mainMenuItem: 'Matches',
             pathTo: '/',
+            forElement: <AllHeroes />,
             subMenuItems: [{ subMenuItem: 'Live Matches', pathTo: '/' },
             { subMenuItem: 'Recent Esports Mathes', pathTo: '/' },
             { subMenuItem: 'Recent Matches', pathTo: '/' },
