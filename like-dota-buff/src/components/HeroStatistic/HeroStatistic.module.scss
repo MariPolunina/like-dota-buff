@@ -1,0 +1,62 @@
+.heroList{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+    border: 1px solid red;
+}
+.columnList{
+    display: flex;
+    flex-direction: row;
+    flex-basis: 80%;
+    // border: 4px solid green;
+}
+.metaContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.heroContainer{
+    display: flex;
+    flex-direction: row;
+    background-color: #242f39;
+}
+.bigPickColumn{
+    border: 1px solid yellow;
+    flex-basis: 10%;
+    padding: 2px;
+}
+.columns{
+    display: flex;
+    flex-direction: row;
+}
+.heroItem{
+    display: flex;
+    align-items: center;
+    gap:5px;
+}
+.nameColumn{
+    // flex-basis: 12%;
+    padding-left: 10px;
+    flex-grow: 1;
+}
+.pickSegment{
+    height: 6px;
+    background-color: red;
+}
+.avatar {
+    max-width: 100%;
+    width: 100%;
+}
+.imgContainer {
+    width: 30%;
+}
+.pickPercent{
+    margin: 5px;
+}
+.pickColumn{
+    flex-basis: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15.5px 0;
+}

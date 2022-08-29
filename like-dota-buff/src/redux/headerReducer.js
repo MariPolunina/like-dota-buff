@@ -1,5 +1,6 @@
 import AllHeroes from "../components/AllHeroes/AllHeroes";
 import Meta from "../components/Meta/Meta";
+import MostPlayed from "../components/MostPlayed/MostPlayed";
 
 const initialState = {
     nemuItems: [
@@ -9,9 +10,7 @@ const initialState = {
             forElement: <AllHeroes />,
             subMenuItems: [{ subMenuItem: 'All Heroes', pathTo: '/allHeroes' },
             { subMenuItem: 'Meta', pathTo: '/meta', forElement:<Meta /> },
-            { subMenuItem: 'Trends', pathTo: '/' },
-            { subMenuItem: 'Lanes', pathTo: '/' },
-            { subMenuItem: 'Most Played', pathTo: '/' },
+            { subMenuItem: 'Most Played', pathTo: '/mostPlayed', forElement: <MostPlayed /> },
             { subMenuItem: 'Win Rate', pathTo: '/' },
             { subMenuItem: 'Game Impact', pathTo: '/' },
             { subMenuItem: 'Economy', pathTo: '/' },
