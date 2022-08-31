@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import withHeroInfo from "../../hoc/withHeroInfo";
 import { allHeroesLoad } from "../../redux/actions";
 import Style from './HeroStatistic.module.scss';
 
@@ -36,9 +37,7 @@ const HeroStatistic = ({ columns }) => {
     useEffect(() => {
         if (listOfHeroes.length > 0) {
             setHeroPick(sumValues('_pick', columns, listOfHeroes));
-            console.log('heroPick>>>', heroPick);
             setWinPick(sumValues('_win', columns, listOfHeroes));
-            console.log('winPick>>>', winPick);
         }
     }, [listOfHeroes]);
 
@@ -81,6 +80,30 @@ const HeroStatistic = ({ columns }) => {
     }, [pickPercent])
 
     return (
+        <MetaPage listOfHeroes={listOfHeroes} pickPercent={pickPercent} winPercent={winPercent} maxWinPercent={maxWinPercent} maximumPick={maximumPick} />
+        // <div className={Style.metaContainer}>
+        //     <h2>Meta</h2>
+        //     <div className={Style.heroContainer}>
+        //         <div className={Style.heroList}>
+        //             <h2>Hero</h2>
+        //             {listOfHeroes.map(item => <HeroItem key={item.id} img={item.img} localized_name={item.localized_name} />)}
+        //         </div>
+        //         <div className={Style.columnList} >
+        //             {
+        //                 pickPercent.map((item, index) => <PickItem pickPercent={item} maxPick={maximumPick[index]} titleColumn={'Pick %'} order={index} />)
+        //             }
+        //             {
+        //                 winPercent.map((item, index) => <PickItem pickPercent={item} maxPick={maxWinPercent[index]} titleColumn={'Win %'} order={index} />)
+        //             }
+        //         </div>
+        //     </div>
+        // </div>
+    )
+}
+
+
+const MetaPage = ({ listOfHeroes, pickPercent, winPercent, maxWinPercent, maximumPick }) => {
+    return (
         <div className={Style.metaContainer}>
             <h2>Meta</h2>
             <div className={Style.heroContainer}>
@@ -101,8 +124,7 @@ const HeroStatistic = ({ columns }) => {
     )
 }
 
-
-const HeroItem = ({ img, localized_name }) => {
+export const HeroItem = ({ img, localized_name }) => {
     return (
         <div className={Style.heroItem}>
             <div className={Style.imgContainer}>
@@ -114,7 +136,7 @@ const HeroItem = ({ img, localized_name }) => {
 }
 
 
-const PickItem = ({ pickPercent, maxPick, titleColumn, order }) => {
+export const PickItem = ({ pickPercent, maxPick, titleColumn, order }) => {
     return (
         <div className={Style.bigPickColumn} style={{ order: `${order}` }}>
             <h2>{titleColumn}</h2>
@@ -125,7 +147,7 @@ const PickItem = ({ pickPercent, maxPick, titleColumn, order }) => {
     )
 }
 
-const PickColumn = ({ pickPercent, lenghtLine }) => {
+export const PickColumn = ({ pickPercent, lenghtLine }) => {
     return (
         <div className={Style.pickColumn}>
             <p className={Style.pickPercent}>{pickPercent}</p>
@@ -134,4 +156,4 @@ const PickColumn = ({ pickPercent, lenghtLine }) => {
     );
 }
 
-export default HeroStatistic;
+export default withHeroInfo(MetaPage);
