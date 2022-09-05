@@ -66,6 +66,7 @@ const withHeroInfo = (Component) => {
                 setMaximumPick(pickPercent.map(item => Math.max(...item)));
             }
         }, [pickPercent])
+        
         return (
             <Component {...props} listOfHeroes={props.listOfHeroes} pickPercent={pickPercent} winPercent={winPercent} maxWinPercent={maxWinPercent} maximumPick={maximumPick} sumHeroPick={sumHeroPick} heroPick={heroPick} />
         )

@@ -102,7 +102,7 @@ const HeroStatistic = ({ columns }) => {
 }
 
 
-const MetaPage = ({ listOfHeroes, pickPercent, winPercent, maxWinPercent, maximumPick }) => {
+export const MetaPage = ({ listOfHeroes, pickPercent, winPercent, maxWinPercent, maximumPick, children }) => {
     return (
         <div className={Style.metaContainer}>
             <h2>Meta</h2>
@@ -112,11 +112,13 @@ const MetaPage = ({ listOfHeroes, pickPercent, winPercent, maxWinPercent, maximu
                     {listOfHeroes.map(item => <HeroItem key={item.id} img={item.img} localized_name={item.localized_name} />)}
                 </div>
                 <div className={Style.columnList} >
+                    {children}
                     {
-                        pickPercent.map((item, index) => <PickItem pickPercent={item} maxPick={maximumPick[index]} titleColumn={'Pick %'} order={index} />)
+                        pickPercent.map((item, index) => <PickItem pickPercent={item} maxPick={maximumPick[index]} titleColumn={<h2>Pick %</h2>} order={index} />)
                     }
                     {
-                        winPercent.map((item, index) => <PickItem pickPercent={item} maxPick={maxWinPercent[index]} titleColumn={'Win %'} order={index} />)
+                        winPercent.map((item, index) => <PickItem
+                         pickPercent={item} maxPick={maxWinPercent[index]} titleColumn={<h2>Win %</h2>} order={index} />)
                     }
                 </div>
             </div>
@@ -139,7 +141,7 @@ export const HeroItem = ({ img, localized_name }) => {
 export const PickItem = ({ pickPercent, maxPick, titleColumn, order }) => {
     return (
         <div className={Style.bigPickColumn} style={{ order: `${order}` }}>
-            <h2>{titleColumn}</h2>
+            {titleColumn}
             {
                 pickPercent.map(item => <PickColumn pickPercent={item} lenghtLine={(item * 100) / maxPick} />)
             }
