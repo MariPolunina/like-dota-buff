@@ -14,61 +14,56 @@ const sumValues = (reason, columns, listOfHeroes) => {
 }
 const withHeroInfo = (Component) => {
     return function AddInfo(props) {
-        const [heroPick, setHeroPick] = useState( []);
-        const [winPick, setWinPick] = useState([]);
-        const [sumHeroPick, setSumHeroPick] = useState([]);
+        const heroPick = sumValues('_pick', props.columns, props.listOfHeroes);
+        const winPick = sumValues('_win', props.columns, props.listOfHeroes);
+        const maxHeroPick = heroPick.map(item => Math.max(...item));
+        const maxWinPick = winPick.map(item => Math.max(...item));
+        const sumHeroPick = heroPick.map(item => {
+            return item.reduce((a, b) => a + b, 0)
+        });
+        const winPercent = winPick.map((item, index) => {
+            return item.map((win, winIndex) => {
+                return ((win / heroPick[index][winIndex]) * 100).toFixed(2);
+            })
+        });
+        const maxWinPercent = winPercent.map(item => Math.max(...item));
+        const pickPercent = heroPick.map((item, index) => {
+            return item.map(pick => ((pick / sumHeroPick[index]) * 100 * 10).toFixed(2))
+        });
+        const maximumPick = pickPercent.map(item => Math.max(...item));
 
-        const [pickPercent, setPickPercent] = useState([]);
-        const [maximumPick, setMaximumPick] = useState([]);
-        const [winPercent, setWinPercent] = useState([]);
-        const [maxWinPercent, setMaxWinPercent] = useState([]);
-        useEffect(() => {
-            if (props.listOfHeroes.length > 0) {
-                setHeroPick(sumValues('_pick', props.columns, props.listOfHeroes));
-                setWinPick(sumValues('_win', props.columns, props.listOfHeroes));
-            }
-        }, [props.listOfHeroes]);
+        let extraListOfHeroes = props.listOfHeroes;
+        extraListOfHeroes = extraListOfHeroes.map((item, index) => {
+            let newItem = {};
+            newItem.heroPick = heroPick.map(pick => pick[index]);
+            newItem.maxHeroPick = maxHeroPick;
+            newItem.winPick = winPick.map(pick => pick[index]);
+            newItem.sumHeroPick = sumHeroPick;
+            newItem.pickPercent = pickPercent.map(pick => pick[index]);
+            newItem.maximumPick = maximumPick;
+            newItem.winPercent = winPercent.map(pick => pick[index]);
+            newItem.maxWinPercent = maxWinPercent;
+            newItem.maxWinPick = maxWinPick;
+            Object.assign(newItem, item);
+            return newItem;
+        })
+        if(props.needFirstSort){
+            const  columnSort  = props.columnSort;
+            extraListOfHeroes.sort((a, b) => {
+                const firstElement=props.itsNumber?Number(a[columnSort]):a[columnSort];
+                const secondElement=props.itsNubmer?Number(b[columnSort]):b[columnSort];
+                if (firstElement < secondElement) {
+                    return 1;
+                }
+                if (firstElement > secondElement) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
 
-        useEffect(() => {
-            if (heroPick.length > 0) {
-                setSumHeroPick(heroPick.map(item => {
-                    return item.reduce((a, b) => a + b, 0)
-                }));
-            }
-        }, [heroPick]);
-
-        useEffect(() => {
-            if ((winPick.length > 0) && (heroPick.length > 0)) {
-                setWinPercent(winPick.map((item, index) => {
-                    return item.map((win, winIndex) => {
-                        return ((win / heroPick[index][winIndex]) * 100).toFixed(2);
-                    })
-                }));
-            }
-        }, [winPick, heroPick])
-
-        useEffect(() => {
-            if (winPercent.length > 0) {
-                setMaxWinPercent(winPercent.map(item => Math.max(...item)));
-            }
-        }, [winPercent]);
-
-        useEffect(() => {
-            if ((heroPick.length > 0) && (sumHeroPick.length > 0)) {
-                setPickPercent(heroPick.map((item, index) => {
-                    return item.map(pick => ((pick / sumHeroPick[index]) * 100 * 10).toFixed(2))
-                }));
-            }
-        }, [heroPick, sumHeroPick]);
-
-        useEffect(() => {
-            if (pickPercent.length > 0) {
-                setMaximumPick(pickPercent.map(item => Math.max(...item)));
-            }
-        }, [pickPercent])
-        
         return (
-            <Component {...props} listOfHeroes={props.listOfHeroes} pickPercent={pickPercent} winPercent={winPercent} maxWinPercent={maxWinPercent} maximumPick={maximumPick} sumHeroPick={sumHeroPick} heroPick={heroPick} />
+            <Component  {...props} listOfHeroes={props.listOfHeroes} extraListOfHeroes={extraListOfHeroes} pickPercent={pickPercent} winPercent={winPercent} maxWinPercent={maxWinPercent} maximumPick={maximumPick} sumHeroPick={sumHeroPick} heroPick={heroPick} />
         )
     }
 }

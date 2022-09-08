@@ -35,6 +35,7 @@
     display: flex;
     align-items: center;
     gap:5px;
+    flex-basis: 20%;
 }
 .nameColumn{
     // flex-basis: 12%;
@@ -60,5 +61,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 15.5px 0;
+    padding: 15.5px 5px;
+}
+.heroRow{
+    display: flex;
+    flex-direction: row;
+    background-color: #242f39;
+}
+.heroRow:nth-of-type(odd){
+    background-color: #526b83;
 }

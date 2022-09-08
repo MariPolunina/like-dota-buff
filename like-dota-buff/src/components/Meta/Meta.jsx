@@ -14,7 +14,7 @@ const Meta = (props) => {
     });
     return (
         <div>
-            <HeroStatistic columns={[[1, 2, 3], [4], [5], [6], [7, 8]]} listOfHeroes={listOfHeroes} />
+            <HeroStatistic columns={[[1, 2, 3], [4], [5], [6], [7, 8]]} listOfHeroes={listOfHeroes} columnSort={'localized_name'} itsNumber={false}  needFirstSort={true} />
         </div>
     )
 }
