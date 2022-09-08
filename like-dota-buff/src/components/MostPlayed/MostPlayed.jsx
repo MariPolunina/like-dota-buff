@@ -17,13 +17,15 @@ const MostPlayed = (props) => {
     useEffect(() => {
         setLocalOfHeroes(listOfHeroes);
     }, [listOfHeroes]);
+    const [needFirstSort, setNeedFirstSort]=useState(true);
     const handleMatchesPlayed=(newListOfHeroes)=>{
         setLocalOfHeroes(newListOfHeroes);
+        setNeedFirstSort(false);
     }
     return (
-        <div>
+        <div> 
             <h2>Most played</h2>
-            <MetaHeroStatistic columns={[[1, 2, 3, 4, 5, 6, 7, 8]]} listOfHeroes={localListOfHeroes} handleMatchesPlayed={handleMatchesPlayed} />
+            <MetaHeroStatistic columns={[[1, 2, 3, 4, 5, 6, 7, 8]]} listOfHeroes={localListOfHeroes} handleMatchesPlayed={handleMatchesPlayed} columnSort={'heroPick'} itsNumber={true} needFirstSort={needFirstSort} />
         </div>
     )
 }
