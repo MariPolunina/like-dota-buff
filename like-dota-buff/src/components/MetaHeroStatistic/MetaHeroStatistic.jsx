@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import withHeroInfo from "../../hoc/withHeroInfo";
-import { HeroItem, PickColumn } from "../HeroStatistic/HeroStatistic";
+import { HeroItem, PickColumn, PickItem } from "../HeroStatistic/HeroStatistic";
 import Style from './MetaHeroStatistic.module.scss'
 
-const MetaHeroStatistic = ({ extraListOfHeroes, handleMatchesPlayed }) => {
+const MetaHeroStatistic = ({ extraListOfHeroes, handleMatchesPlayed, columnSort, pickItemList, titleColumnsList }) => {
     const [sortMost, setSortMost] = useState(true);
     const valueButton = sortMost ? '↓' : '↑'
 
     const handleNewOrder = () => {
-        let sortExtraList=[...extraListOfHeroes];
+        let sortExtraList = [...extraListOfHeroes];
         sortExtraList.sort((a, b) => {
-            const firstElement=Number(a['heroPick']);
-            const secondElement=Number(b['heroPick']);
+            const firstElement = Number(a[columnSort]);
+            const secondElement = Number(b[columnSort]);
             if (firstElement > secondElement) {
                 return sortMost ? 1 : -1;
             }
@@ -24,41 +24,53 @@ const MetaHeroStatistic = ({ extraListOfHeroes, handleMatchesPlayed }) => {
         setSortMost(!sortMost);
         handleMatchesPlayed(sortExtraList);
     }
-
     return (
         <div>
             <div className={Style.metaContainer}>
-                <div>
-                    <div className={Style.heroRow}>
-                        <h3 className={Style.heroItem}>Hero</h3>
-                        <div className={Style.pickColumn}>
-                            <h3>Matches played</h3>
-                            <button onClick={handleNewOrder} >{valueButton}</button>
-                        </div>
-                        <h3 className={Style.pickColumn}>Pick rate</h3>
-                        <h3 className={Style.pickColumn}>Win rate</h3>
-                    </div>
-                    {extraListOfHeroes.map(heroItem => {
-                        const { pickPercent, id, img, localized_name, winPercent, maxWinPercent, maximumPick, sumHeroPick, heroPick, maxHeroPick } = heroItem;
-                        return (
-                            <div className={Style.heroRow}>
-                                <HeroItem key={id} img={img} localized_name={localized_name} />
-                                {
-                                    heroPick.map((item, index) => <PickColumn pickPercent={item} lenghtLine={(item * 100) / maxHeroPick[index]} order={index} />)
-                                }
-                                {
-                                    pickPercent.map((item, index) => <PickColumn pickPercent={item} lenghtLine={(item * 100) / maximumPick[index]} order={index} />)
-                                }
-                                {
-                                    winPercent.map((item, index) => <PickColumn pickPercent={item} lenghtLine={(item * 100) / maxWinPercent[index]} order={index} />)
-                                }
-                            </div>
-                        )
-                    })}
+                <div className={Style.heroRow}>
+                    {
+                        titleColumnsList.map(item => {
+                            const { classTitle, needButtonSort, valueTitle } = item;
+                            return needButtonSort ?
+                                <TitleColumn classTitle={classTitle} needButtonSort={needButtonSort} valueTitle={valueTitle} valueButton={valueButton} handleButtonSort={handleNewOrder} /> :
+                                <TitleColumn classTitle={classTitle} needButtonSort={needButtonSort} valueTitle={valueTitle} />
+                        })
+                    }
                 </div>
+                {extraListOfHeroes.map(heroItem => {
+                    const { id, img, localized_name } = heroItem;
+                    return (
+                        <div className={Style.heroRow}>
+                            <HeroItem key={id} img={img} localized_name={localized_name} />
+                            {
+                                pickItemList.map(item => {
+                                    const { mapList, maxList } = item;
+                                    return <PickItem mapList={heroItem[mapList]} maxList={heroItem[maxList]} />
+                                })
+                            }
+                        </div>
+                    )
+                })}
             </div>
         </div>
     )
 }
 
 export default withHeroInfo(MetaHeroStatistic);
+
+export const TitleColumn = ({ valueTitle, needButtonSort, classTitle, ...props }) => {
+    return (
+        <>
+            {
+                needButtonSort ?
+                    <div className={Style[classTitle]}>
+                        <h3>{valueTitle}</h3>
+                        <button onClick={props.handleButtonSort} >{props.valueButton}</button>
+                    </div> :
+                    <h3 className={Style[classTitle]}>
+                        {valueTitle}
+                    </h3>
+            }
+        </>
+    )
+}

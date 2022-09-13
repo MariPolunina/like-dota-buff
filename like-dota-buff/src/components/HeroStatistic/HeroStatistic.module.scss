@@ -57,7 +57,8 @@
     margin: 5px;
 }
 .pickColumn{
-    flex-basis: 10%;
+    // flex-basis: 10%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,4 +71,12 @@
 }
 .heroRow:nth-of-type(odd){
     background-color: #526b83;
+}
+.pickItem{
+    display: flex;
+    // flex-basis: 10%;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: center;
+    padding: 15.5px 5px;
 }

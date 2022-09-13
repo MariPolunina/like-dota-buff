@@ -1,8 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import withHeroInfo from "../../hoc/withHeroInfo";
-import { allHeroesLoad } from "../../redux/actions";
 import Style from './HeroStatistic.module.scss';
 
 export const MetaPage = ({ extraListOfHeroes, ...props }) => {
@@ -15,12 +11,8 @@ export const MetaPage = ({ extraListOfHeroes, ...props }) => {
                     return (
                         <div className={Style.heroRow}>
                             <HeroItem key={id} img={img} localized_name={localized_name} />
-                            {
-                                pickPercent.map((item, index) => <PickColumn pickPercent={item} lenghtLine={(item * 100) / maximumPick[index]} order={index} />)
-                            }
-                            { 
-                                winPercent.map((item, index) => <PickColumn pickPercent={item} lenghtLine={(item * 100) / maxWinPercent[index]} order={index} />)
-                            }
+                            <PickItem mapList={pickPercent} maxList={maximumPick} />
+                            <PickItem mapList={winPercent} maxList={maxWinPercent} />
                         </div>
                     )
                 })}
@@ -41,9 +33,20 @@ export const HeroItem = ({ img, localized_name }) => {
 }
 
 
+export const PickItem = ({ mapList, maxList }) => {
+    return (
+        <>
+            {
+                mapList.map((item, index) => <PickColumn pickPercent={item} lenghtLine={(item * 100) / maxList[index]} order={index} />)
+            }
+        </>
+
+    )
+}
+
 export const PickColumn = ({ pickPercent, lenghtLine, order }) => {
     return (
-        <div className={Style.pickColumn}  style={{ order: `${order}` }}>
+        <div className={Style.pickColumn} style={{ order: `${order}` }}>
             <p className={Style.pickPercent}>{pickPercent}</p>
             <div style={{ width: `${lenghtLine}%` }} className={Style.pickSegment}></div>
         </div>

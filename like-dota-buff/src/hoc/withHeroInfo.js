@@ -63,7 +63,7 @@ const withHeroInfo = (Component) => {
         }
 
         return (
-            <Component  {...props} listOfHeroes={props.listOfHeroes} extraListOfHeroes={extraListOfHeroes} pickPercent={pickPercent} winPercent={winPercent} maxWinPercent={maxWinPercent} maximumPick={maximumPick} sumHeroPick={sumHeroPick} heroPick={heroPick} />
+            <Component  {...props} extraListOfHeroes={extraListOfHeroes}  />
         )
     }
 }
