@@ -7,16 +7,13 @@ const initialState = {
     nemuItems: [
         {
             mainMenuItem: 'Heroes',
-            pathTo: '/allHeroes',
+            pathTo: 'allHeroes',
             forElement: <AllHeroes />,
-            subMenuItems: [{ subMenuItem: 'All Heroes', pathTo: '/allHeroes' },
-            { subMenuItem: 'Meta', pathTo: '/meta', forElement:<Meta /> },
-            { subMenuItem: 'Most Played', pathTo: '/mostPlayed', forElement: <MostPlayed /> },
-            { subMenuItem: 'Win Rate', pathTo: '/heroesWinRate', forElement:<HeroesWinRate /> },
-            { subMenuItem: 'Game Impact', pathTo: '/' },
-            { subMenuItem: 'Economy', pathTo: '/' },
-            { subMenuItem: 'Farm', pathTo: '/' },
-            { subMenuItem: 'Damage and Healing', pathTo: '/' }]
+            subMenuItems: [
+                { subMenuItem: 'All Heroes', pathTo: 'allHeroes', forElement: <AllHeroes />, },
+                { subMenuItem: 'Meta', pathTo: 'meta', forElement: <Meta /> },
+                { subMenuItem: 'Most Played', pathTo: 'mostPlayed', forElement: <MostPlayed /> },
+                { subMenuItem: 'Win Rate', pathTo: 'heroesWinRate', forElement: <HeroesWinRate /> },]
         },
         {
             mainMenuItem: 'Items',

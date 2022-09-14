@@ -1,25 +1,5 @@
-import withHeroInfo from "../../hoc/withHeroInfo";
 import Style from './HeroStatistic.module.scss';
 
-export const MetaPage = ({ extraListOfHeroes, ...props }) => {
-    return (
-        <div className={Style.metaContainer}>
-            <h2>Meta</h2>
-            <div>
-                {extraListOfHeroes.map(heroItem => {
-                    const { pickPercent, id, img, localized_name, winPercent, maxWinPercent, maximumPick, ...props } = heroItem;
-                    return (
-                        <div className={Style.heroRow}>
-                            <HeroItem key={id} img={img} localized_name={localized_name} />
-                            <PickItem mapList={pickPercent} maxList={maximumPick} />
-                            <PickItem mapList={winPercent} maxList={maxWinPercent} />
-                        </div>
-                    )
-                })}
-            </div>
-        </div>
-    )
-}
 
 export const HeroItem = ({ img, localized_name }) => {
     return (
@@ -37,7 +17,7 @@ export const PickItem = ({ mapList, maxList }) => {
     return (
         <>
             {
-                mapList.map((item, index) => <PickColumn pickPercent={item} lenghtLine={(item * 100) / maxList[index]} order={index} />)
+                mapList.map((item, index) => <PickColumn key={index} pickPercent={item} lenghtLine={(item * 100) / maxList[index]} order={index} />)
             }
         </>
 
@@ -53,4 +33,3 @@ export const PickColumn = ({ pickPercent, lenghtLine, order }) => {
     );
 }
 
-export default withHeroInfo(MetaPage);

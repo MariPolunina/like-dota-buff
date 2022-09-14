@@ -1,21 +1,13 @@
-import HeroStatistic from '../HeroStatistic/HeroStatistic';
-import Style from './Meta.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { allHeroesLoad } from '../../redux/actions';
+import { useSelector } from 'react-redux';
+import { HeroPage } from '../MostPlayed/MostPlayed';
 
 const Meta = (props) => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(allHeroesLoad());
-    }, []);
-    const listOfHeroes = useSelector(state => {
-        return state.allHeroesReducer.heroes;
+    const aboutWinRate = useSelector(state => {
+        return state.metaReducer;
     });
+    const { pickItemList, titleColumnsList } = aboutWinRate;
     return (
-        <div>
-            <HeroStatistic columns={[[1, 2, 3], [4], [5], [6], [7, 8]]} listOfHeroes={listOfHeroes} columnSort={'localized_name'} itsNumber={false}  needFirstSort={true} />
-        </div>
+        <HeroPage {...props} titlePage={'Most played'} columns={[[1, 2, 3], [4], [5], [6], [7, 8]]} pickItemList={pickItemList} titleColumnsList={titleColumnsList} columnSort={'localized_name'} itsNumber={false} />
     )
 }
 
