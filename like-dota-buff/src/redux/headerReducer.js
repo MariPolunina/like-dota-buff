@@ -1,4 +1,5 @@
 import AllHeroes from "../components/AllHeroes/AllHeroes";
+import AllItems from "../components/AllItems/AllItems";
 import HeroesWinRate from "../components/HeroesWinRate/HeroesWinRate";
 import Meta from "../components/Meta/Meta";
 import MostPlayed from "../components/MostPlayed/MostPlayed";
@@ -17,13 +18,15 @@ const initialState = {
         },
         {
             mainMenuItem: 'Items',
-            pathTo: '/',
-            forElement: <AllHeroes />,
-            subMenuItems: [{ subMenuItem: 'Most Used', pathTo: '/' },
-            { subMenuItem: 'Win Rate', pathTo: '/' },
-            { subMenuItem: 'Game Impact', pathTo: '/' },
-            { subMenuItem: 'Economy', pathTo: '/' },
-            { subMenuItem: 'Cosmetics', pathTo: '/' }]
+            pathTo: '/allItems',
+            forElement: <AllItems />,
+            subMenuItems: [
+                // { subMenuItem: 'Most Used', pathTo: '/' },
+                // { subMenuItem: 'Win Rate', pathTo: '/' },
+                // { subMenuItem: 'Game Impact', pathTo: '/' },
+                // { subMenuItem: 'Economy', pathTo: '/' },
+                // { subMenuItem: 'Cosmetics', pathTo: '/' }
+            ]
         },
         {
             mainMenuItem: 'Players',

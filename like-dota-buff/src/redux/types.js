@@ -1,1 +1,2 @@
 export const ALL_HEROES_ADD='ALL_HEROES_ADD';
+export const ALL_ITEMS_ADD='ALL_ITEMS_ADD';

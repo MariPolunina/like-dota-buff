@@ -1,3 +1,20 @@
+
+.allHeroesCard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+.attrIcon {
+    position: absolute;
+    top: 87%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .heroesCard {
     background-color: rgb(32, 31, 31);
     display: flex;
@@ -6,12 +23,10 @@
     border-radius: 20px;
     flex-basis: 12%;
 }
-.allHeroesCard {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+.imgContainer {
+    position: relative;
+    max-width: 100%;
+    width: 100%;
 }
 .avatar {
     border-top-left-radius: 20px;
@@ -20,20 +35,7 @@
     width: 100%;
     border-bottom: 2px solid black;
 }
-
 .nameHero {
     color: white;
     padding: 5px;
-}
-.imgContainer {
-    position: relative;
-    max-width: 100%;
-    width: 100%;
-}
-.attrIcon {
-    position: absolute;
-    top: 87%;
-    display: flex;
-    justify-content: center;
-    width: 100%;
 }

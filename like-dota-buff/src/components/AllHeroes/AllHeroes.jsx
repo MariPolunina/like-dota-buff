@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { allHeroesLoad } from '../../redux/actions';
+import ItemSkeleton from '../ItemSkeleton/ItemSkeleton';
 import Style from './AllHeroes.module.scss'
 
 const AllHeroes = (props) => {
@@ -26,11 +27,14 @@ const HeroesItem = ({ id, localized_name, src, primary_attr }) => {
     return (
         <div key={id} className={Style.heroesCard}>
             <div className={Style.imgContainer}>
-                <img src={`https://api.opendota.com${src}`}className={Style.avatar} />
+                <img src={`https://api.opendota.com${src}`} className={Style.avatar} />
                 <AttrIcon primary_attr={primary_attr} />
             </div>
             <p className={Style.nameHero}>{localized_name}</p>
         </div>
+        // <ItemSkeleton name={localized_name} id={id} src={`https://api.opendota.com${src}`}>
+        //     <AttrIcon primary_attr={primary_attr} />
+        // </ItemSkeleton>
     )
 }
 
