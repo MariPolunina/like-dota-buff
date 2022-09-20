@@ -72,3 +72,12 @@ p{
     justify-content: flex-end;
     gap:10px;
 }
+.subItemConteiner{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 10%;
+}
+.subItemsContainer{
+    display: flex;
+    flex-direction: row;
+}

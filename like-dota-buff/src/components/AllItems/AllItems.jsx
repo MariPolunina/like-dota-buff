@@ -33,9 +33,18 @@ const AllItems = (props) => {
     return (
         <div className={Style.allHeroesCard}>
             {
-                itemsArr.map(item => {                    
+                itemsArr.map(item => {
+                    const {created} =item;
+                    let newComponents=[];
+                    if(created){
+                        const {components} =item;
+                        newComponents=components.map(component=>{
+                            const newElem=itemsArr.find(findItem=>findItem.name==component);
+                            return newElem
+                        })
+                    }                  
                     if (item.hasOwnProperty('hint') && (item.cost>0)) {
-                        return <ItemSkeleton item={item} windowInnerHeight={height} windowInnerWidth={width} />
+                        return <ItemSkeleton item={item} windowInnerHeight={height} windowInnerWidth={width} newComponents={newComponents} />
                     }
                 })
             }

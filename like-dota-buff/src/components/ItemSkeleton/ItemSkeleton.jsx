@@ -3,8 +3,12 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import Style from './ItemSkeleton.module.scss'
 
-const ItemSkeleton = ({ item, windowInnerHeight, windowInnerWidth }) => {
-    const { dname, id, img} = item;
+const ItemSkeleton = ({ item, windowInnerHeight, windowInnerWidth, newComponents }) => {
+    const { dname, id, img } = item;
+    if(dname=='Fallen Sky'){
+        
+    }
+    // console.log(item);
     const srcImg = `https://api.opendota.com${img}`;
     const [extraInfo, setExtraInfo] = useState(false);
     const [pageX, setPageX] = useState(140);
@@ -17,7 +21,7 @@ const ItemSkeleton = ({ item, windowInnerHeight, windowInnerWidth }) => {
         setExtraInfo(false);
     }
     const handleMovementInside = (e) => {
-        console.log(e);
+
         setPageX(e.nativeEvent.offsetX + 15);
         setPageY(e.nativeEvent.offsetY + 15);
     }
@@ -29,7 +33,7 @@ const ItemSkeleton = ({ item, windowInnerHeight, windowInnerWidth }) => {
                 </img>
             </div>
             <p className={Style.nameHero}>{dname}</p>
-            {extraInfo && <ExtraInfoItem pageX={pageX} pageY={pageY} srcImg={srcImg} item={item} windowInnerHeight={windowInnerHeight} windowInnerWidth={windowInnerWidth}  />}
+            {extraInfo && <ExtraInfoItem pageX={pageX} pageY={pageY} srcImg={srcImg} item={item} windowInnerHeight={windowInnerHeight} windowInnerWidth={windowInnerWidth} newComponents={newComponents} />}
         </div>
     )
 }
@@ -45,8 +49,8 @@ function countHidden(element, innerHeight, innerWidth) {
     return elementHides;
 }
 
-const ExtraInfoItem = ({ item, pageX, pageY, srcImg, windowInnerHeight, windowInnerWidth}) => {
-    const { dname, id, hint, cost, notes, attrib, cd, created, lore, mc } = item;
+const ExtraInfoItem = ({ item, pageX, pageY, srcImg, windowInnerHeight, windowInnerWidth, newComponents }) => {
+    const { dname, hint, cost, notes, attrib, cd, created, lore, mc } = item;
     const areaAbout = useRef(null);
     const [topCorner, setTopCorner] = useState(0);
     const [leftCorner, setLeftCorner] = useState(0);
@@ -65,7 +69,7 @@ const ExtraInfoItem = ({ item, pageX, pageY, srcImg, windowInnerHeight, windowIn
         else if (right > 0) {
             newleftCorner = -right;
             setNotChangeRight(true);
-        }
+        };
         if (!notChangeDown && !notChangeRight) {
             setTopCorner(newtopCorner);
             setLeftCorner(newleftCorner);
@@ -112,7 +116,33 @@ const ExtraInfoItem = ({ item, pageX, pageY, srcImg, windowInnerHeight, windowIn
             <div className={Style.loreContainer}>
                 {lore}
             </div>
-            
+            <div className={Style.buildsFrom}>
+                {
+                    created &&
+                    <div>
+                        <div>Builds from</div>
+                        <div className={Style.subItemsContainer}>
+                            {
+                                newComponents.map(component => {
+                                    if(component!=undefined){
+                                        const { cost, img, id } = component;
+                                        return <SubItem id={id} cost={cost} img={img} />
+                                    }
+                                })
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    )
+}
+
+const SubItem = ({ cost, img }) => {
+    return (
+        <div className={Style.subItemConteiner}>
+            <img src={`https://api.opendota.com${img}`} />
+            <p>{cost}</p>
         </div>
     )
 }
