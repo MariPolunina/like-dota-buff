@@ -50,8 +50,8 @@ export const MetaHeroStatisticContainer = (props) => {
     if (props.needFirstSort) {
         const columnSort = props.columnSort;
         extraListOfHeroes.sort((a, b) => {
-            const firstElement = props.itsNumber ? Number(a[columnSort]) : a[columnSort].toLowerCase();
-            const secondElement = props.itsNubmer ? Number(b[columnSort]) : b[columnSort].toLowerCase();
+            const firstElement = props.itsNumber ? Number(a[columnSort]) : a[columnSort];
+            const secondElement = props.itsNubmer ? Number(b[columnSort]) : b[columnSort];
             if (firstElement < secondElement) {
                 return 1;
             }

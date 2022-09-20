@@ -1,12 +1,15 @@
+import { useRef } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Style from './ItemSkeleton.module.scss'
 
-const ItemSkeleton = ({ item }) => {
-    const { dname, id, img, hint, cost, notes, attrib, cd, created, lore } = item;
+const ItemSkeleton = ({ item, windowInnerHeight, windowInnerWidth }) => {
+    const { dname, id, img} = item;
     const srcImg = `https://api.opendota.com${img}`;
     const [extraInfo, setExtraInfo] = useState(false);
     const [pageX, setPageX] = useState(140);
     const [pageY, setPageY] = useState(10);
+
     const handleVisible = () => {
         setExtraInfo(true);
     }
@@ -14,9 +17,11 @@ const ItemSkeleton = ({ item }) => {
         setExtraInfo(false);
     }
     const handleMovementInside = (e) => {
-        setPageX(e.nativeEvent.offsetX + 10);
-        setPageY(e.nativeEvent.offsetY + 10);
+        console.log(e);
+        setPageX(e.nativeEvent.offsetX + 15);
+        setPageY(e.nativeEvent.offsetY + 15);
     }
+
     return (
         <div key={id} className={Style.heroesCard}>
             <div className={Style.imgContainer}>
@@ -24,20 +29,79 @@ const ItemSkeleton = ({ item }) => {
                 </img>
             </div>
             <p className={Style.nameHero}>{dname}</p>
-            {extraInfo && <ExtraInfoItem pageX={pageX} pageY={pageY} srcImg={srcImg} dname={dname} cost={cost} hint={hint} notes={notes} lore={lore} />}
+            {extraInfo && <ExtraInfoItem pageX={pageX} pageY={pageY} srcImg={srcImg} item={item} windowInnerHeight={windowInnerHeight} windowInnerWidth={windowInnerWidth}  />}
         </div>
     )
 }
 
-const ExtraInfoItem = ({ pageX, pageY, srcImg, dname, cost, hint, notes, lore }) => {
+function countHidden(element, innerHeight, innerWidth) {
+    const elementRect = element.getBoundingClientRect();
+    const elementHides = {
+        up: Math.max(0, 0 - elementRect.top),
+        left: Math.max(0, 0 - elementRect.left),
+        down: Math.max(0, elementRect.bottom - innerHeight),
+        right: Math.max(0, elementRect.right - innerWidth)
+    };
+    return elementHides;
+}
+
+const ExtraInfoItem = ({ item, pageX, pageY, srcImg, windowInnerHeight, windowInnerWidth}) => {
+    const { dname, id, hint, cost, notes, attrib, cd, created, lore, mc } = item;
+    const areaAbout = useRef(null);
+    const [topCorner, setTopCorner] = useState(0);
+    const [leftCorner, setLeftCorner] = useState(0);
+    const [notChangeDown, setNotChangeDown] = useState(false);
+    const [notChangeRight, setNotChangeRight] = useState(false);
+
+    useEffect(() => {
+        let newtopCorner = pageY;
+        let newleftCorner = pageX;
+        const newElementhides = countHidden(areaAbout.current, windowInnerHeight, windowInnerWidth);
+        const { down, right } = newElementhides;
+        if (down > 0) {
+            newtopCorner = -down;
+            setNotChangeDown(true);
+        }
+        else if (right > 0) {
+            newleftCorner = -right;
+            setNotChangeRight(true);
+        }
+        if (!notChangeDown && !notChangeRight) {
+            setTopCorner(newtopCorner);
+            setLeftCorner(newleftCorner);
+        }
+        else if (!notChangeDown) {
+            setTopCorner(newtopCorner);
+        }
+        else if (!notChangeRight) {
+            setLeftCorner(newleftCorner);
+        }
+        // console.log('pageY', pageY, 'pageX', pageX);
+        // console.log('down', down, 'right', right);
+
+    }, [pageX, pageY])
     return (
-        <div className={Style.aboutItemContainer} style={{ top: `${pageY}px`, left: `${pageX}px` }}>
+        <div ref={areaAbout} className={Style.aboutItemContainer} style={{ top: `${topCorner}px`, left: `${leftCorner}px` }}>
             <div className={Style.headerItem}>
                 <img src={srcImg} className={Style.imgHeader} />
                 <div className={Style.aboutItemInfo}>
                     <h3 className={Style.dnameField}>{dname}</h3>
                     <p className={Style.costField}>{cost}</p>
                 </div>
+            </div>
+            <div className={Style.mcDc}>
+                <div>{mc}</div>
+                <div>{cd}</div>
+            </div>
+            <div>
+                {attrib.map(item => {
+                    const { header, value, footer } = item;
+                    return (
+                        <p>
+                            {`${header} ${value} ${footer}`}
+                        </p>
+                    )
+                })}
             </div>
             <div>
                 {hint.map(item => <div>{item}</div>)}
@@ -48,8 +112,10 @@ const ExtraInfoItem = ({ pageX, pageY, srcImg, dname, cost, hint, notes, lore })
             <div className={Style.loreContainer}>
                 {lore}
             </div>
+            
         </div>
     )
 }
 
 export default ItemSkeleton;
+

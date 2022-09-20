@@ -28,12 +28,14 @@ const AllItems = (props) => {
 
     }, [items])
     // console.log(itemsArr)
+    const { height, width } = useWindowDimensions();
+    // console.log('width - ', width, 'height - ', height);
     return (
         <div className={Style.allHeroesCard}>
             {
                 itemsArr.map(item => {                    
-                    if (item.hasOwnProperty('hint')) {
-                        return <ItemSkeleton item={item} />
+                    if (item.hasOwnProperty('hint') && (item.cost>0)) {
+                        return <ItemSkeleton item={item} windowInnerHeight={height} windowInnerWidth={width} />
                     }
                 })
             }
@@ -42,3 +44,24 @@ const AllItems = (props) => {
 }
 
 export default AllItems;
+
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+        width,
+        height
+    };
+}
+
+function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+    useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return windowDimensions;
+}

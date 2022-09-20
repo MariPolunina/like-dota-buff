@@ -1,3 +1,7 @@
+p{
+    margin: 0;
+    padding: 0;
+}
 .heroesCard {
     background-color: rgb(32, 31, 31);
     display: flex;
@@ -6,6 +10,7 @@
     //  border-radius: 10px;
     flex-basis: 20%;
     position: relative;
+
 }
 .imgContainer {
     // position: relative;
@@ -58,4 +63,12 @@
 }
 .loreContainer{
     background-color: rgb(58, 58, 58);
+    font-style: italic;
+}
+.mcDc{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap:10px;
 }
