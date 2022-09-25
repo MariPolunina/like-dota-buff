@@ -7,4 +7,7 @@ export const heroAPI={
     getConstant(resource){
         return axios.get(`https://api.opendota.com/api/constants/${resource}`)
     },
+    getProPlayers(){
+        return  axios.get('https://api.opendota.com/api/proPlayers')
+    },
 }

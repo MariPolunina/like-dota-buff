@@ -5,6 +5,7 @@ import { heroesWinRateReducer } from "./heroesWinRateReducer";
 import { mostPlayedReducer } from "./mostPlayedReducer";
 import { metaReducer } from "./metaReducer";
 import { allItemsReducer } from "./allItemsReducer";
+import { allProPlayersReducer } from "./allProPlayersReducer";
 
 export const rootReducer = combineReducers({
     allHeroesReducer,
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
     heroesWinRateReducer,
     mostPlayedReducer,
     metaReducer,
-    allItemsReducer
+    allItemsReducer,
+    allProPlayersReducer
 });
